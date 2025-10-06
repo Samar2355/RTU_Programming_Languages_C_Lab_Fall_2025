@@ -1,22 +1,18 @@
-/*
- * week4_3_struct_database.c
- * Author: [Your Name]
- * Student ID: [Your ID]
- * Description:
- *   Simple in-memory "database" using an array of structs.
- *   Students will use malloc to allocate space for multiple Student records,
- *   then input, display, and possibly search the data.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// TODO: Define struct Student with fields name, id, grade
+// Define struct Student with fields name, id, grade
+struct student {
+    char name[50];
+    int id;
+    float grade;
+};
+typedef struct student Student;
 
 int main(void) {
     int n;
-    struct Student *students = NULL;
+    Student *students = NULL;
 
     printf("Enter number of students: ");
     if (scanf("%d", &n) != 1 || n <= 0) {
@@ -24,15 +20,27 @@ int main(void) {
         return 1;
     }
 
-    // TODO: Allocate memory for n Student structs using malloc
+    // Allocate memory for n Student structs using malloc
+    students = (Student*)malloc(n * sizeof(Student));
+    if (students == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
 
-    // TODO: Read student data in a loop
+    // Read student data in a loop
+    for (int i = 0; i < n; i++) {
+        printf("Enter name, id, and grade for student %d: ", i + 1);
+        scanf("%s %d %f", students[i].name, &students[i].id, &students[i].grade);
+    }
 
-    // TODO: Display all student records in formatted output
+    // Display all student records in formatted output
+    printf("\nStudent Records:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Name: %s, ID: %d, Grade: %.2f\n", students[i].name, students[i].id, students[i].grade);
+    }
 
-    // Optional: Compute average grade or find top student
-
-    // TODO: Free allocated memory
+    // Free allocated memory
+    free(students);
 
     return 0;
 }
