@@ -1,7 +1,3 @@
-// week5_task2_struct_save_load.c
-// Task 2: Save and load structured records from a file
-// Week 5 – Files & Modular Programming
-// TODO: Complete function implementations and file handling logic.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,23 +23,18 @@ int main(void) {
 
     const char *filename = "student.txt";
 
-    // TODO: Call save_student() to save student data to file
     save_student(s1, filename);
-    printf("Saving Student data\ frpm file \n");
-    // TODO: Call load_student() to read data back into a new structure
-    printf("Loading Student data from file\n");
+    printf("Saving Student in binary format \n");
+    printf("Loading Student in binary format\n");
     Student s2 = load_student(filename);
 
-    // TODO: Print loaded data to confirm correctness
     printf("Loaded Student: Name= %s, Age= %d, GPA= %.2f\n", s2.name, s2.age, s2.gpa);
 
     return 0;
 }
 
-// TODO: Implement save_student()
-// Open file for writing, check errors, write fields, then close file
 void save_student(Student s, const char *filename) {
-    FILE *fp = fopen(filename, "w");
+    FILE *fp = fopen(filename, "wb");
     if (fp == NULL) {
         printf("Error opening file %s for writing.\n", filename);
         return;
@@ -52,13 +43,13 @@ void save_student(Student s, const char *filename) {
     fclose(fp);
 }
 
-// TODO: Implement load_student()
+
 Student load_student (const char *filename) {
     Student s;
-    FILE *fp = fopen(filename, "r");
+    FILE *fp = fopen(filename, "rb");
     if (fp == NULL) {
         printf("Error opening file %s for reading.\n", filename);
-        // Return empty student or handle error as needed
+
         s.name[0] = '\0';
         s.age = 0;
         s.gpa = 0.0f;
@@ -68,4 +59,3 @@ Student load_student (const char *filename) {
     fclose(fp);
     return s;
 }
-// Open file for reading, check errors, read fields, then close file
